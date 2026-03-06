@@ -345,26 +345,79 @@ export class AuthController {
 ## Configuration Management
 
 ### **Environment Configuration**
-- Use @nestjs/config for configuration management
-- Validate configuration at startup
-- Use different configs for different environments
+- Use `@nestjs/config` with `ConfigModule.forRoot()` for environment-based configuration
+- Validate configuration at startup using `Joi` or `class-validator` schemas
+- Use namespaced configuration for complex setups (`registerAs`)
+- Access typed configuration via custom `ConfigService` or `@Inject(config.KEY)`
+- Store secrets in environment variables; never hardcode sensitive values
 
 ```typescript
-@Injectable()
-export class ConfigService {
+// config/database.config.ts
+export default registerAs('database', () => ({
+  host: process.env.DB_HOST ?? 'localhost',
+  port: parseInt(process.env.DB_PORT ?? '5432', 10),
+  name: process.env.DB_NAME ?? 'app',
+}));
+
+// app.module.ts
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig],
+      validationSchema: Joi.object({
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(5432),
+      }),
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+## Health Checks
+
+- Use `@nestjs/terminus` for health check endpoints
+- Expose a `/health` endpoint for orchestrators and load balancers
+- Check critical dependencies: database, Redis, external APIs, disk storage
+- Use `HealthCheckService` with built-in indicators (`TypeOrmHealthIndicator`, `HttpHealthIndicator`, `DiskHealthIndicator`, `MemoryHealthIndicator`)
+
+```typescript
+@Controller('health')
+export class HealthController {
   constructor(
-    @Inject(CONFIGURATION_TOKEN)
-    private readonly config: Configuration,
+    private health: HealthCheckService,
+    private db: TypeOrmHealthIndicator,
   ) {}
 
-  get databaseUrl(): string {
-    return this.config.database.url;
-  }
-
-  get jwtSecret(): string {
-    return this.config.jwt.secret;
+  @Get()
+  @HealthCheck()
+  check() {
+    return this.health.check([
+      () => this.db.pingCheck('database'),
+    ]);
   }
 }
+```
+
+## OpenAPI / Swagger
+
+- Use `@nestjs/swagger` to auto-generate API documentation from DTOs and controllers
+- Decorate DTOs with `@ApiProperty()` for schema generation
+- Use `@ApiTags()`, `@ApiOperation()`, and `@ApiResponse()` on controllers
+- Enable the Swagger UI in non-production environments
+- Use `DocumentBuilder` to configure API metadata (title, version, auth schemes)
+
+```typescript
+// main.ts
+const config = new DocumentBuilder()
+  .setTitle('API')
+  .setVersion('1.0')
+  .addBearerAuth()
+  .build();
+const document = SwaggerModule.createDocument(app, config);
+SwaggerModule.setup('api/docs', app, document);
+```
 ```
 
 ## Common Pitfalls to Avoid
@@ -395,13 +448,5 @@ export class ConfigService {
 - [ ] Security considerations (authentication, authorization, input sanitization)
 - [ ] Performance considerations (caching, database optimization)
 - [ ] Comprehensive testing coverage
-
-## Conclusion
-
-NestJS provides a powerful, opinionated framework for building scalable Node.js applications. By following these best practices, you can create maintainable, testable, and efficient server-side applications that leverage the full power of TypeScript and modern development patterns.
-
----
-
-<!-- End of NestJS Instructions -->
 
 <!-- Source: https://github.com/github/awesome-copilot/blob/main/instructions/nestjs.instructions.md -->

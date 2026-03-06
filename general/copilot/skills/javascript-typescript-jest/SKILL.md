@@ -3,6 +3,10 @@ name: javascript-typescript-jest
 description: 'Best practices for writing JavaScript/TypeScript tests using Jest, including mocking strategies, test structure, and common patterns.'
 ---
 
+# Jest / Vitest Testing Best Practices
+
+> These patterns apply to both Jest (v29+) and Vitest. Vitest is API-compatible with Jest and is the recommended choice for Vite-based projects. Prefer Vitest for new TypeScript projects; use Jest when the project already depends on it.
+
 ### Test Structure
 - Name test files with `.test.ts` or `.test.js` suffix
 - Place test files next to the code they test or in a dedicated `__tests__` directory
@@ -12,10 +16,15 @@ description: 'Best practices for writing JavaScript/TypeScript tests using Jest,
 
 ### Effective Mocking
 - Mock external dependencies (APIs, databases, etc.) to isolate your tests
-- Use `jest.mock()` for module-level mocks
-- Use `jest.spyOn()` for specific function mocks
+- Use `jest.mock()` (or `vi.mock()` in Vitest) for module-level mocks
+- Use `jest.spyOn()` (or `vi.spyOn()`) for specific function mocks
 - Use `mockImplementation()` or `mockReturnValue()` to define mock behavior
-- Reset mocks between tests with `jest.resetAllMocks()` in `afterEach`
+- Reset mocks between tests with `jest.resetAllMocks()` (or `vi.resetAllMocks()`) in `afterEach`
+
+### Mocking ES Modules
+- For ESM projects, use `jest.unstable_mockModule()` (Jest) or `vi.mock()` (Vitest, which handles ESM natively)
+- Import the mocked module dynamically with `await import()` after calling `jest.unstable_mockModule()`
+- Vitest handles ESM mocking transparently; prefer it for ESM-first projects
 
 ### Testing Async Code
 - Always return promises or use async/await syntax in tests

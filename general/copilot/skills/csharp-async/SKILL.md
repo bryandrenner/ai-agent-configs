@@ -30,8 +30,10 @@ Your goal is to help me follow best practices for asynchronous programming in C#
 
 - Use `Task.WhenAll()` for parallel execution of multiple tasks
 - Use `Task.WhenAny()` for implementing timeouts or taking the first completed task
+- Use `Task.WhenEach()` (.NET 9+) to process tasks as they complete, rather than waiting for all
 - Avoid unnecessary async/await when simply passing through task results
 - Consider cancellation tokens for long-running operations
+- Compose cancellation tokens with `CancellationTokenSource.CreateLinkedTokenSource()` for layered timeout scenarios
 
 ## Common Pitfalls
 
@@ -39,6 +41,19 @@ Your goal is to help me follow best practices for asynchronous programming in C#
 - Avoid mixing blocking and async code
 - Don't create async void methods (except for event handlers)
 - Always await Task-returning methods
+
+## ConfigureAwait Guidance
+
+- In ASP.NET Core, `ConfigureAwait(false)` has no effect because there is no `SynchronizationContext`; omit it in application code for clarity
+- In library code that may run outside ASP.NET Core (WPF, WinForms, legacy ASP.NET), use `ConfigureAwait(false)` to avoid deadlocks
+- When in doubt about the consumer, use `ConfigureAwait(false)` in shared libraries
+
+## Async Streams
+
+- Use `IAsyncEnumerable<T>` for producing sequences of values asynchronously
+- Accept `[EnumeratorCancellation] CancellationToken` in async iterator methods
+- Consume with `await foreach` and pass cancellation via `.WithCancellation(token)`
+- Prefer async streams over returning `Task<List<T>>` when results can be yielded incrementally
 
 ## Implementation Patterns
 

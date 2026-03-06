@@ -1,6 +1,9 @@
 ---
 description: 'Playwright test generation instructions'
+applyTo: '**/*.spec.ts, **/*.test.ts'
 ---
+
+# Playwright Test Development
 
 ## Test Writing Guidelines
 
@@ -64,6 +67,61 @@ test.describe('Movie Search Feature', () => {
       `);
     });
   });
+});
+```
+
+## Page Object Model
+
+- Encapsulate page interactions in Page Object classes for reuse across tests.
+- Store Page Objects in a `pages/` directory alongside tests.
+- Expose semantic methods (`login`, `searchFor`, `addToCart`) rather than raw locator interactions.
+- Accept `Page` as a constructor parameter; avoid global state.
+
+```typescript
+export class LoginPage {
+  constructor(private readonly page: Page) {}
+
+  async login(username: string, password: string) {
+    await this.page.getByLabel('Username').fill(username);
+    await this.page.getByLabel('Password').fill(password);
+    await this.page.getByRole('button', { name: 'Sign in' }).click();
+  }
+}
+```
+
+## Authentication and Session Handling
+
+- Use `storageState` to save and reuse authenticated browser state across tests.
+- Create a global setup script that logs in once and writes the storage state to a file.
+- Reference the storage state in `playwright.config.ts` via `use: { storageState }` per project.
+- Keep authentication fixtures separate from test logic.
+
+```typescript
+// global-setup.ts
+async function globalSetup(config: FullConfig) {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto('/login');
+  await page.getByLabel('Username').fill(process.env.USER!);
+  await page.getByLabel('Password').fill(process.env.PASS!);
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.context().storageState({ path: '.auth/user.json' });
+  await browser.close();
+}
+```
+
+## API Testing
+
+- Use `APIRequestContext` (via `request` fixture) for backend / API-level tests without a browser.
+- Validate response status, headers, and JSON body with standard `expect` assertions.
+- Use API calls in `beforeAll`/`afterAll` hooks to seed or clean up test data.
+
+```typescript
+test('GET /api/users returns 200', async ({ request }) => {
+  const response = await request.get('/api/users');
+  expect(response.ok()).toBeTruthy();
+  const users = await response.json();
+  expect(users.length).toBeGreaterThan(0);
 });
 ```
 
