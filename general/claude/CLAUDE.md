@@ -109,5 +109,5 @@ A **pristine changeset**:
 - When a chat / session arrives at a pristine changeset, recommend a commit message, PR title, and PR description.
 - Develop Outside-In to avoid gold-plating the backend. User stories drive UI/API implementation, which drive backend implementation.
 - Use environment-based feature flags to enable WIP code paths and short-lived branches.
-- When introducing non-trivial changes to existing implementation, identify opportunities for **meaningful, high-leverage** refactors and test coverage improvements as a preliminary, pristine changeset.
+- When introducing non-trivial changes to existing implementation, identify opportunities for **meaningful, high-leverage** refactors and test coverage improvements as a preliminary, pristine changeset. **Ask about these before finalizing a plan.**
 - Avoid YAGNI and premature optimization, but acknowledge opportunities for future improvements that are currently out-of-scope.
