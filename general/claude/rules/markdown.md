@@ -1,0 +1,67 @@
+---
+description: 'Documentation and content creation standards'
+paths:
+  - '**/*.md'
+---
+
+# Markdown Standards
+
+## Content Rules
+
+The following markdown content rules are enforced in the validators:
+
+1. **Headings**: Use appropriate heading levels (H1, H2, etc.) to structure your content.
+2. **Lists**: Use bullet points or numbered lists for lists. Ensure proper indentation and spacing.
+3. **Code Blocks**: Use fenced code blocks for code snippets. Specify the language for syntax highlighting.
+4. **Links**: Use proper markdown syntax for links. Ensure that links are valid and accessible.
+5. **Images**: Use proper markdown syntax for images. Include alt text for accessibility.
+6. **Tables**: Use markdown tables for tabular data. Ensure proper formatting and alignment.
+7. **Whitespace**: Use appropriate whitespace to separate sections and improve readability.
+
+## Formatting and Structure
+
+Follow these guidelines for formatting and structuring your markdown content:
+
+- **Headings**: Use `#` for H1 and `##` for H2. Ensure that headings are used in a hierarchical manner. Recommend restructuring if content includes H4, and more strongly recommend for H5.
+- **Lists**: Use `-` for bullet points and `1.` for numbered lists. Indent nested lists with two spaces.
+- **Code Blocks**: Use triple backticks to create fenced code blocks. Specify the language after the opening backticks for syntax highlighting (e.g., ` ```csharp `).
+- **Links**: Use `[link text](URL)` for links. Ensure that the link text is descriptive and the URL is valid.
+- **Images**: Use `![alt text](image URL)` for images. Include a brief description of the image in the alt text.
+- **Tables**: Use `|` to create tables. Ensure that columns are properly aligned and headers are included.
+- **Line Length**: Break lines at 80 characters to improve readability. Use soft line breaks for long paragraphs.
+- **Whitespace**: Use blank lines to separate sections and improve readability. Avoid excessive whitespace.
+
+## Callouts and Admonitions
+
+Use blockquote-based callouts for important notes, warnings, and tips:
+
+```markdown
+> [!NOTE]
+> Useful information that users should know.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information users need to know to achieve their goal.
+
+> [!WARNING]
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
+```
+
+- Use callouts sparingly; overuse reduces their effectiveness.
+- Choose the appropriate severity level for the content.
+- Keep callout text concise and actionable.
+
+## Validation Requirements
+
+Ensure compliance with the following validation requirements:
+
+- **Content Rules**: Ensure that the content follows the markdown content rules specified above.
+- **Formatting**: Ensure that the content is properly formatted and structured according to the guidelines.
+- **Validation**: Run the validation tools to check for compliance with the rules and guidelines.
+
+<-- Adapted from: https://github.com/github/awesome-copilot/blob/main/instructions/markdown.instructions.md -->
