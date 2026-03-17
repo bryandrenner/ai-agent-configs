@@ -82,13 +82,13 @@ In descending order of importance, planning and implementing:
 
 A **pristine changeset** (or commit) is a changeset that is:
 - **atomic** - focused on one goal
-- **incremental** - minimal diff and blast radius
-- **verified** - zero regressions; passes lint, type check, test, and build targets
-- **release-safe** - verified, and all WIP or prototype features dormant
+- **incremental** - minimal diff / blast radius
+- **verified** - updates test coverage per the changes; builds; passes lint, type check, and tests
+- **release-safe** - prerelease, WIP, or prototype features gated and dormant
 
 A **pristine changeset**:
 - enables faster feedback from code review, QA, and PO signoff
-- may represent either a finished feature *or* WIP / prototype (toggleable behind a feature flag)
+- may represent either a finished feature, WIP, *or* prototype
 
 ### Guidelines
 
