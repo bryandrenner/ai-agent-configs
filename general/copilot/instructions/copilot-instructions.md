@@ -55,16 +55,16 @@ In descending order of importance, planning and implementing:
   1. **Unit tests** target individual classes or functions.
   2. **Component tests** target interconnected classes and functions with mocked boundaries or in-memory databases
   3. **Integration tests** target the implementation with real connections to external systems
-  4. **End-to-end tests** target a running instance in a real deployment environment, or a published library
+  4. **End-to-end tests** target a running instance in a real deployment environment
 - Tests focus on the externally-appreciable behaviors of their target.
 - Log proactively with appropriate severity:
   1. **fatal** - failures from which the app cannot recover, or when data may have been corrupted
   2. **error** - a condition that should not occur and that likely requires a fix, but from which the system *can* recover
   3. **warn** - an anomaly that is expected in the regular course of events, for which an upward trend may indicate an actionable problem (examples: a temporary network failure, a bad request from a user, an unexpectely long running process, a deprecation notice encountered)
-  4. **info** - happy-path milestones that may be worth monitoring, or collecting metrics from, in the regular course of events; for which a downward trend may indicate an actionable problem. Catch and log at the site of the significant event.
+  4. **info** - happy-path milestones that may be worth monitoring, or collecting metrics from, in the regular course of events; for which a downward trend may indicate an actionable problem
   5. **debug** - diagnostic details for active troubleshooting, *selectively enabled*. Log sparingly and selectively where details are likely to help a future troubleshooter.
   6. **trace** - fine-grained diagnostic details that should be collected only when troubleshooting, only in local development. Add trace-level logging statements *only during a troubleshooting effort, and remove them before merging*.
-- Enforce strict conventions via automated checks (e.g. strict compiler, typecheck, linting, style-cop configs).
+- Enforce strict conventions via automated checks (e.g. strict compiler, typecheck, linting, "style cop" configs).
 - Perform safe formatting automatically on commit or in CI.
 - Proactively maintain docs.
   - Explain the product and usage in `README.md`.
