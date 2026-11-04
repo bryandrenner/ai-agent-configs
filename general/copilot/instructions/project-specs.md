@@ -3,11 +3,78 @@ description: 'Guidelines for individual-project specs to be read automatically b
 applyTo: '*/**/AGENTS.md, */**/CLAUDE.md, */**/CONTRIBUTING.md'
 ---
 
-Follow this template to create and maintain docs **specific to a project in a monorepo**. It may also be used for root-level docs for single-project (non-monorepo) repos. 
+Follow this template to create and maintain docs *specific to a project in a monorepo* or the single project in a non-monorepo.
+
+A project may represent an app (for download and install), service (hosted), worker, library, script / internal tool, or static reference.
+
+This document contains a template with placeholders to be filled in. Placeholders look like: `{ term / desc. }`. In the YAML info blocks, placeholders start with `$`, e.g. `${ term / desc. }`.
+
+The template is a suggestion. Conform when reasonable, but improvise to express info most effectively. For example, pluralize a property when it makes sense to have more than one. Simplify an object to a string when the info fidelity is lower than a detailed object. Almost every property is optional, even if encouraged.
+
+**Now here's the template:**
 
 ---
 
-# {Project Name} — Product and implementation spec
+# {Project Name} — development spec
+
+## Product
+
+```yml
+names: &names
+  full name: ${ full-length product name }
+  short name: ${ short name for the product }
+  internal name: ${ internal nicknames or codenames for the product }
+  deprecated name: ${ names that have been deprecated but may still be encountered }
+description: ${ summary desc. of the product }
+urls:
+  homepage: ${ URL of a marketing page }
+  ui: ${ URL of the main GUI product }
+  api: ${ base URL of an API product }
+  docs: ${ URL of the published docs }
+  api docs: ${ URL of docs specific to an API product }
+  source: ${ URL of the source, esp. for open source products }
+users:
+  end user: &user # an unsophisticated end user
+    name: ${ term for this type of user}
+    description: ${ desc. of the user }
+  power user: *user # a more sophisticated end user (e.g. does deeper config, admin)
+  consumer: *user # a technical user (external dev) or programmatic consumer (client / downstream system)
+  support: *user # a nontechnical user who offers assistance for the product
+  ops: *user # a user who logs / monitors / deploys / does IT for the product
+  devs: *user # a downstream internal dev or team
+features: &simple_feature_hierarchy
+  - ${ name/desc. of feature area}
+    - ${ name/desc. of feature }
+      - ${ name/desc. of subfeature }
+      - ...
+    - ...
+  - ...
+# or
+features: &feature_hierarchy
+  - names: *names
+    user: ${ name/identifier of feature user }
+    subfeatures: *feature_hierarchy
+versioning strategy: ${ semver / etc. }
+glossary:
+  ${term}: ${definition}
+```
+
+# Environments
+
+```
+instances: # for hosted apps/services/workers
+  ${ instance name (e.g. production / sandbox) }:
+    url: ${ URL of this instance of the product }
+    # or
+    urls:
+      ui: ${ URL of the main GUI product }
+      api: ${ base URL of the API product }
+      docs: ${ URL of the published docs }
+```
+
+## Product
+
+
 
 > **Purpose:** Single-source-of-truth for AI-assisted and human contributors to implement this project from scratch or resume work.
 > **Last updated:** {YYYY-MM-DD}
