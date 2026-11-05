@@ -90,6 +90,8 @@ A **pristine changeset**:
 - enables faster feedback from code review, QA, and PO signoff
 - may represent either a finished feature, WIP, *or* prototype
 
+Identify planning gaps and inconsistencies up-front before implementing. Ask instead of assuming.
+
 ### Guidelines
 
 - Aim for pristine changesets.
@@ -98,3 +100,7 @@ A **pristine changeset**:
 - Use environment-based feature flags to enable WIP code paths and short-lived branches.
 - When making non-trivial changes to existing implementation, consider prerequisite **low-effort, high-impact** refactors and test coverage. **Ask about these before finalizing a plan.**
 - Avoid premature optimization, but acknowledge opportunities for future improvements that are currently out-of-scope.
+
+## Deferred decisions
+
+If you notice tech debt, caveats, opportunities for improvement, out-of-scope issues, needed fixes, or considerations that should be revisited later, add them to a "Debt" document. The default location is `docs/engineering/debt.md` unless the specified otherwise.
