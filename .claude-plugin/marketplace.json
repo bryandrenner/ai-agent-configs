@@ -1,0 +1,14 @@
+{
+  "name": "drenner-marketplace",
+  "description": "Bryan Drenner's personal Claude plugins",
+  "owner": {
+    "name": "Bryan Drenner"
+  },
+  "plugins": [
+    {
+      "name": "bryan-toolkit",
+      "source": "./plugins/claude/drenner-toolkit",
+      "description": "Personal skills for reviewing and improving my Claude setup"
+    }
+  ]
+}
