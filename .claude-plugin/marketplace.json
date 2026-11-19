@@ -8,7 +8,7 @@
     {
       "name": "drenner-toolkit",
       "source": "./plugins/claude/drenner-toolkit",
-      "description": "Personal skills for reviewing my Claude setup"
+      "description": "My personal Claude skills"
     }
   ]
 }
