@@ -6,9 +6,9 @@
   },
   "plugins": [
     {
-      "name": "bryan-toolkit",
+      "name": "drenner-toolkit",
       "source": "./plugins/claude/drenner-toolkit",
-      "description": "Personal skills for reviewing and improving my Claude setup"
+      "description": "Personal skills for reviewing my Claude setup"
     }
   ]
 }

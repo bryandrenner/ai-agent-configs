@@ -1,8 +1,8 @@
 {
   "name": "drenner-toolkit",
   "displayName": "Bryan Drenner's toolkit",
-  "version": "1.0.0",
-  "description": "Personal skills for reviewing and improving my Claude setup",
+  "version": "1.1.0",
+  "description": "Personal skills for reviewing my Claude setup and writing Markdown documents",
   "author": {
     "name": "Bryan Drenner"
   }
