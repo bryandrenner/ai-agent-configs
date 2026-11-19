@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "drenner-toolkit",
-      "source": "./plugins/claude/drenner-toolkit",
+      "source": "./claude/shared/plugins/drenner-toolkit",
       "description": "My personal Claude skills"
     }
   ]
