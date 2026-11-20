@@ -1,1 +1,11 @@
+# Local scratch space
+.local/
+
+# macOS detritus
 .DS_Store
+
+# Claude
+.claude/settings.local.json
+
+# Node
+node_modules/

@@ -1,0 +1,9 @@
+[tools]
+node = "26.13.1"
+
+[tasks.format]
+description = "Format all files"
+run = "npm run format"
+
+[hooks]
+postinstall = "npm ci"
