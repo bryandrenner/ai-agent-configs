@@ -8,6 +8,7 @@ description: 'Best practices for writing JavaScript/TypeScript tests using Jest,
 > These patterns apply to both Jest (v29+) and Vitest. Vitest is API-compatible with Jest and is the recommended choice for Vite-based projects. Prefer Vitest for new TypeScript projects; use Jest when the project already depends on it.
 
 ### Test Structure
+
 - Name test files with `.test.ts` or `.test.js` suffix
 - Place test files next to the code they test or in a dedicated `__tests__` directory
 - Use descriptive test names that explain the expected behavior
@@ -15,6 +16,7 @@ description: 'Best practices for writing JavaScript/TypeScript tests using Jest,
 - Follow the pattern: `describe('Component/Function/Class', () => { it('should do something', () => {}) })`
 
 ### Effective Mocking
+
 - Mock external dependencies (APIs, databases, etc.) to isolate your tests
 - Use `jest.mock()` (or `vi.mock()` in Vitest) for module-level mocks
 - Use `jest.spyOn()` (or `vi.spyOn()`) for specific function mocks
@@ -22,27 +24,32 @@ description: 'Best practices for writing JavaScript/TypeScript tests using Jest,
 - Reset mocks between tests with `jest.resetAllMocks()` (or `vi.resetAllMocks()`) in `afterEach`
 
 ### Mocking ES Modules
+
 - For ESM projects, use `jest.unstable_mockModule()` (Jest) or `vi.mock()` (Vitest, which handles ESM natively)
 - Import the mocked module dynamically with `await import()` after calling `jest.unstable_mockModule()`
 - Vitest handles ESM mocking transparently; prefer it for ESM-first projects
 
 ### Testing Async Code
+
 - Always return promises or use async/await syntax in tests
 - Use `resolves`/`rejects` matchers for promises
 - Set appropriate timeouts for slow tests with `jest.setTimeout()`
 
 ### Snapshot Testing
+
 - Use snapshot tests for UI components or complex objects that change infrequently
 - Keep snapshots small and focused
 - Review snapshot changes carefully before committing
 
 ### Testing React Components
+
 - Use React Testing Library over Enzyme for testing components
 - Test user behavior and component accessibility
 - Query elements by accessibility roles, labels, or text content
 - Use `userEvent` over `fireEvent` for more realistic user interactions
 
 ## Common Jest Matchers
+
 - Basic: `expect(value).toBe(expected)`, `expect(value).toEqual(expected)`
 - Truthiness: `expect(value).toBeTruthy()`, `expect(value).toBeFalsy()`
 - Numbers: `expect(value).toBeGreaterThan(3)`, `expect(value).toBeLessThanOrEqual(3)`

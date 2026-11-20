@@ -13,18 +13,19 @@ If the unit under test has complex inputs with minor variations, resulting in mi
 
 1. Add a type to the top of the file representing the test case (inputs and expected output).
 
-  ```ts
-  interface TestCase {
-    Kitchen inputKitchen
-    Chef inputChef
-    Menu inputMenu
-    WaiterRecommendation[] expectedRecommendations
-  }
-  ```
+```ts
+interface TestCase {
+  Kitchen inputKitchen
+  Chef inputChef
+  Menu inputMenu
+  WaiterRecommendation[] expectedRecommendations
+}
+```
 
 2. Add a helper function at the bottom of thie file called `happyPathTestCase` that returns the complex inputs and expected output for the happy path.
 
    Example:
+
    ```ts
    function happyPathTestCase(): TestCase {
      return {
@@ -45,19 +46,26 @@ If the unit under test has complex inputs with minor variations, resulting in mi
    ```
 
 3. Call `happyPathTestCase()` at the top of each test function, and make each test minimally modify the inputs and outputs to represent the behavioral variation.
-   
-  Example:
-  ```ts
-  test('recommends simple menu items when the chef has fewer than 2 years\' experience', () => {
-    const { inputKitchen, inputChef, inputMenu, expectedRecommendations }
-      = happyPathTestCase()
-    inputChef.experience.years = 1
-    expectedRecommendations = expectedRecommendations.filter((r) => r.complexity > 3)
 
-    const recommendations = makeRecommendations(inputKitchen, inputChef, inputMenu)
+Example:
 
-    assert(recommendations).toStrictEqual(expectedRecommendations)
-  })
-  ```
+```ts
+test("recommends simple menu items when the chef has fewer than 2 years' experience", () => {
+  const { inputKitchen, inputChef, inputMenu, expectedRecommendations } =
+    happyPathTestCase()
+  inputChef.experience.years = 1
+  expectedRecommendations = expectedRecommendations.filter(
+    (r) => r.complexity > 3,
+  )
+
+  const recommendations = makeRecommendations(
+    inputKitchen,
+    inputChef,
+    inputMenu,
+  )
+
+  assert(recommendations).toStrictEqual(expectedRecommendations)
+})
+```
 
 4. Add a `happy path` test as the first test, that simply feeds the unit test inputs and asserts it against the expected output.

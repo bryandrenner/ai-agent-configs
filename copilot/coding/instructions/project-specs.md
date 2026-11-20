@@ -3,7 +3,7 @@ description: 'Guidelines for individual-project specs to be read automatically b
 applyTo: '*/**/AGENTS.md, */**/CLAUDE.md, */**/CONTRIBUTING.md'
 ---
 
-Follow this template to create and maintain docs *specific to a project in a monorepo* or the single project in a non-monorepo.
+Follow this template to create and maintain docs _specific to a project in a monorepo_ or the single project in a non-monorepo.
 
 A project may represent an app (for download and install), service (hosted), worker, library, script / internal tool, or static reference.
 
@@ -43,11 +43,7 @@ users:
   ops: *user # a user who logs / monitors / deploys / does IT for the product
   devs: *user # a downstream internal dev or team
 features: &simple_feature_hierarchy
-  - ${ name/desc. of feature area}
-    - ${ name/desc. of feature }
-      - ${ name/desc. of subfeature }
-      - ...
-    - ...
+  - ${ name/desc. of feature area} - ${ name/desc. of feature } - ${ name/desc. of subfeature } - ... - ...
   - ...
 # or
 features: &feature_hierarchy
@@ -74,10 +70,7 @@ instances: # for hosted apps/services/workers
 
 ## Product
 
-
-
-> **Purpose:** Single-source-of-truth for AI-assisted and human contributors to implement this project from scratch or resume work.
-> **Last updated:** {YYYY-MM-DD}
+> **Purpose:** Single-source-of-truth for AI-assisted and human contributors to implement this project from scratch or resume work. **Last updated:** {YYYY-MM-DD}
 
 ---
 
@@ -121,8 +114,9 @@ apps:
     path: # e.g. apps/dashboard
     port: # local dev port
     features:
-      - # major feature 1
-      - # major feature 2
+      -  # major feature 1
+      -  # major feature 2
+
 
   - name: # e.g. Public API
     type: api
@@ -332,10 +326,10 @@ clear_cache: # e.g. nx reset
 
 <!-- Problem → fix pairs. Keep concise. -->
 
-| Symptom | Cause | Fix |
-| ------- | ----- | --- |
+| Symptom                     | Cause | Fix                 |
+| --------------------------- | ----- | ------------------- |
 | {error message or behavior} | {why} | {command or action} |
-| | | |
+|                             |       |                     |
 
 ---
 
@@ -351,10 +345,11 @@ phases:
     name: # e.g. Scaffold & Infra
     goal: # one sentence
     done_when:
-      - # verifiable criterion
-      - # verifiable criterion
+      -  # verifiable criterion
+      -  # verifiable criterion
     key_decisions:
-      - # e.g. "Use inferred Nx targets — no explicit project.json unless overriding."
+      -  # e.g. "Use inferred Nx targets — no explicit project.json unless overriding."
+
 
   - id: 2
     name:
@@ -384,9 +379,9 @@ phases:
 
 ```yaml
 in_scope:
-  - # e.g. apps/dashboard, libs/contracts, infra/
+  -  # e.g. apps/dashboard, libs/contracts, infra/
 out_of_scope:
-  - # e.g. legacy migration scripts, third-party fork
+  -  # e.g. legacy migration scripts, third-party fork
 reference_only:
-  - # e.g. Read libs/domain for types but don't modify
+  -  # e.g. Read libs/domain for types but don't modify
 ```

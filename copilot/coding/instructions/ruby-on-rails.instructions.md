@@ -66,7 +66,6 @@ applyTo: '**/*.rb'
 - Use `rails routes` to list all defined routes in the application.
 - Use `rails assets:precompile` to compile assets for production.
 
-
 ## API Development Best Practices
 
 - Structure routes using Rails' `resources` to follow RESTful conventions.

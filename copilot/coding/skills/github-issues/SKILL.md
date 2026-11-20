@@ -12,7 +12,7 @@ Manage GitHub issues using the `@modelcontextprotocol/server-github` MCP server.
 ### MCP Tools (read operations)
 
 | Tool | Purpose |
-|------|---------|
+| --- | --- |
 | `mcp__github__issue_read` | Read issue details, sub-issues, comments, labels (methods: get, get_comments, get_sub_issues, get_labels) |
 | `mcp__github__list_issues` | List and filter repository issues by state, labels, date |
 | `mcp__github__search_issues` | Search issues across repos using GitHub search syntax |
@@ -25,7 +25,7 @@ Manage GitHub issues using the `@modelcontextprotocol/server-github` MCP server.
 The MCP server does not currently support creating, updating, or commenting on issues. Use `gh api` for these operations.
 
 | Operation | Command |
-|-----------|---------|
+| --- | --- |
 | Create issue | `gh api repos/{owner}/{repo}/issues -X POST -f title=... -f body=...` |
 | Update issue | `gh api repos/{owner}/{repo}/issues/{number} -X PATCH -f title=... -f state=...` |
 | Add comment | `gh api repos/{owner}/{repo}/issues/{number}/comments -X POST -f body=...` |
@@ -67,6 +67,7 @@ Add any of these flags to the `gh api` call:
 ```
 
 **Issue types** are organization-level metadata. To discover available types, use:
+
 ```bash
 gh api graphql -f query='{ organization(login: "ORG") { issueTypes(first: 10) { nodes { name } } } }' --jq '.data.organization.issueTypes.nodes[].name'
 ```
@@ -87,11 +88,11 @@ gh api graphql -f query='{ organization(login: "ORG") { issueTypes(first: 10) { 
 
 Always use the templates in [references/templates.md](references/templates.md). Choose based on issue type:
 
-| User Request | Template |
-|--------------|----------|
-| Bug, error, broken, not working | Bug Report |
-| Feature, enhancement, add, new | Feature Request |
-| Task, chore, refactor, update | Task |
+| User Request                    | Template        |
+| ------------------------------- | --------------- |
+| Bug, error, broken, not working | Bug Report      |
+| Feature, enhancement, add, new  | Feature Request |
+| Task, chore, refactor, update   | Task            |
 
 ## Updating Issues
 
@@ -113,7 +114,8 @@ Only include fields you want to change. Available fields: `title`, `body`, `stat
 
 **User**: "Create a bug issue - the login page crashes when using SSO"
 
-**Action**: 
+**Action**:
+
 ```bash
 gh api repos/github/awesome-copilot/issues \
   -X POST \
@@ -140,6 +142,7 @@ Page becomes unresponsive and displays error." \
 **User**: "Create a feature request for dark mode with high priority"
 
 **Action**:
+
 ```bash
 gh api repos/github/awesome-copilot/issues \
   -X POST \
@@ -167,17 +170,17 @@ Implement theme toggle with system preference detection.
 
 Use these standard labels when applicable:
 
-| Label | Use For |
-|-------|---------|
-| `bug` | Something isn't working |
-| `enhancement` | New feature or improvement |
-| `documentation` | Documentation updates |
-| `good first issue` | Good for newcomers |
-| `help wanted` | Extra attention needed |
-| `question` | Further information requested |
-| `wontfix` | Will not be addressed |
-| `duplicate` | Already exists |
-| `high-priority` | Urgent issues |
+| Label              | Use For                       |
+| ------------------ | ----------------------------- |
+| `bug`              | Something isn't working       |
+| `enhancement`      | New feature or improvement    |
+| `documentation`    | Documentation updates         |
+| `good first issue` | Good for newcomers            |
+| `help wanted`      | Extra attention needed        |
+| `question`         | Further information requested |
+| `wontfix`          | Will not be addressed         |
+| `duplicate`        | Already exists                |
+| `high-priority`    | Urgent issues                 |
 
 ## Tips
 
@@ -191,7 +194,7 @@ Use these standard labels when applicable:
 The following features require REST or GraphQL APIs beyond the basic MCP tools. Each is documented in its own reference file so the agent only loads the knowledge it needs.
 
 | Capability | When to use | Reference |
-|------------|-------------|-----------|
+| --- | --- | --- |
 | Advanced search | Complex queries with boolean logic, date ranges, cross-repo search, issue field filters (`field.name:value`) | [references/search.md](references/search.md) |
 | Sub-issues & parent issues | Breaking work into hierarchical tasks | [references/sub-issues.md](references/sub-issues.md) |
 | Issue dependencies | Tracking blocked-by / blocking relationships | [references/dependencies.md](references/dependencies.md) |

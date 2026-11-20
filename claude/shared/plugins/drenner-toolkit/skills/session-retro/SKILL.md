@@ -28,18 +28,18 @@ Answers one question: how could this session have gone better? Mines the user's 
 
 1. **Ledger.** Scan every user turn, including messages sent mid-task. Record corrections, redirects, rejections, re-asks, requirements added late, stated preferences about format, depth or tone, and approvals. For each, note the turn, the quote, what Claude had just done, and the result the user preferred.
 2. **Fix.** Classify each entry:
-    - **Instruction:** the text, plus its layer.
-    - **Skill:** a new skill or an edit, with the text.
-    - **Prompt:** what the user could have said up front (goal, done when, constraints, an example), phrased as a reusable pattern.
-    - **No change:** a one-off or a model miss. Say so rather than inventing a rule.
+   - **Instruction:** the text, plus its layer.
+   - **Skill:** a new skill or an edit, with the text.
+   - **Prompt:** what the user could have said up front (goal, done when, constraints, an example), phrased as a reusable pattern.
+   - **No change:** a one-off or a model miss. Say so rather than inventing a rule.
 3. **Vet.** Check each instruction or skill candidate against harness-review's rubric and layer map; invoke that skill if it's available. If it isn't, at minimum confirm the candidate names a visible behavior, says when it applies, isn't something Claude does by default, and sits in the narrowest layer that loads when needed.
 4. **Context audit** (full retro only, or when there were no ledger entries). List the user's own configuration that loaded: preferences, project instructions and files, CLAUDE.md and rules, memory files read, skills invoked, and connectors the user added. Exclude platform content. Mark each chunk:
-    - **Used:** name the turn it shaped.
-    - **Should have applied:** it loaded but wasn't followed, which usually points to a trigger or wording problem.
-    - **Irrelevant:** to this kind of session (move it to a narrower layer), or just this once (leave it).
-    - **Harmful:** it pulled a response off course.
+   - **Used:** name the turn it shaped.
+   - **Should have applied:** it loaded but wasn't followed, which usually points to a trigger or wording problem.
+   - **Irrelevant:** to this kind of session (move it to a narrower layer), or just this once (leave it).
+   - **Harmful:** it pulled a response off course.
 
-    Estimate the size in words of the largest irrelevant chunks. In Claude Code, point to /context for real numbers. Your sense of what influenced you is approximate, so mark low-confidence calls.
+   Estimate the size in words of the largest irrelevant chunks. In Claude Code, point to /context for real numbers. Your sense of what influenced you is approximate, so mark low-confidence calls.
 
 ## Quick output (under one screen)
 

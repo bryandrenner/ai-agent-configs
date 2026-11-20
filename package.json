@@ -17,6 +17,8 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "prettier": {
+    "semi": false,
+    "singleQuote": true,
     "overrides": [
       {
         "files": "*.md",

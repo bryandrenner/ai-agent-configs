@@ -35,20 +35,15 @@ Follow these guidelines for formatting and structuring your markdown content:
 Use blockquote-based callouts for important notes, warnings, and tips:
 
 ```markdown
-> [!NOTE]
-> Useful information that users should know.
+> [!NOTE] Useful information that users should know.
 
-> [!TIP]
-> Helpful advice for doing things better or more easily.
+> [!TIP] Helpful advice for doing things better or more easily.
 
-> [!IMPORTANT]
-> Key information users need to know to achieve their goal.
+> [!IMPORTANT] Key information users need to know to achieve their goal.
 
-> [!WARNING]
-> Urgent info that needs immediate user attention to avoid problems.
+> [!WARNING] Urgent info that needs immediate user attention to avoid problems.
 
-> [!CAUTION]
-> Advises about risks or negative outcomes of certain actions.
+> [!CAUTION] Advises about risks or negative outcomes of certain actions.
 ```
 
 - Use callouts sparingly; overuse reduces their effectiveness.

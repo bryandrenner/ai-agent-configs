@@ -49,8 +49,8 @@ In descending order of importance, planning and implementing:
   2. Clarify related implementation context that is non-obvious.
   3. Give usage examples where variations are complex.
   4. Summarize the "what" of
-    - confusing constraints from external services or libraries
-    - potentially intimidating logic (sometimes necessary)
+  - confusing constraints from external services or libraries
+  - potentially intimidating logic (sometimes necessary)
 - Cover behaviors comprehensively with multiple types of automated tests. Apply the Test Pyramid:
   1. **Unit tests** target individual classes or functions.
   2. **Component tests** target interconnected classes and functions with mocked boundaries or in-memory databases
@@ -59,11 +59,11 @@ In descending order of importance, planning and implementing:
 - Tests focus on the externally-appreciable behaviors of their target.
 - Log proactively with appropriate severity:
   1. **fatal** - failures from which the app cannot recover, or when data may have been corrupted
-  2. **error** - a condition that should not occur and that likely requires a fix, but from which the system *can* recover
+  2. **error** - a condition that should not occur and that likely requires a fix, but from which the system _can_ recover
   3. **warn** - an anomaly that is expected in the regular course of events, for which an upward trend may indicate an actionable problem (examples: a temporary network failure, a bad request from a user, an unexpectely long running process, a deprecation notice encountered)
   4. **info** - happy-path milestones that may be worth monitoring, or collecting metrics from, in the regular course of events; for which a downward trend may indicate an actionable problem
-  5. **debug** - diagnostic details for active troubleshooting, *selectively enabled*. Log sparingly and selectively where details are likely to help a future troubleshooter.
-  6. **trace** - fine-grained diagnostic details that should be collected only when troubleshooting, only in local development. Add trace-level logging statements *only during a troubleshooting effort, and remove them before merging*.
+  5. **debug** - diagnostic details for active troubleshooting, _selectively enabled_. Log sparingly and selectively where details are likely to help a future troubleshooter.
+  6. **trace** - fine-grained diagnostic details that should be collected only when troubleshooting, only in local development. Add trace-level logging statements _only during a troubleshooting effort, and remove them before merging_.
 - Enforce strict conventions via automated checks (e.g. strict compiler, typecheck, linting, "style cop" configs).
 - Perform safe formatting automatically on commit or in CI.
 - Proactively maintain docs.
@@ -81,14 +81,16 @@ In descending order of importance, planning and implementing:
 ### Concept: Pristine changeset
 
 A **pristine changeset** (or commit) is a changeset that is:
+
 - **atomic** - focused on one goal
 - **incremental** - minimal diff / blast radius
 - **verified** - updates test coverage per the changes; builds; passes lint, type check, and tests
 - **release-safe** - prerelease, WIP, or prototype features gated and dormant
 
 A **pristine changeset**:
+
 - enables faster feedback from code review, QA, and PO signoff
-- may represent either a finished feature, WIP, *or* prototype
+- may represent either a finished feature, WIP, _or_ prototype
 
 Identify planning gaps and inconsistencies up-front before implementing. Ask instead of assuming.
 

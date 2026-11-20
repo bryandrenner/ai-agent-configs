@@ -64,16 +64,12 @@ Provide concrete examples with clear labels:
 
 ```markdown
 ### Good Example
-\`\`\`language
-// Recommended approach
-code example here
-\`\`\`
+
+\`\`\`language // Recommended approach code example here \`\`\`
 
 ### Bad Example
-\`\`\`language
-// Avoid this pattern
-code example here
-\`\`\`
+
+\`\`\`language // Avoid this pattern code example here \`\`\`
 ```
 
 ### 4. Validation and Verification (Optional but Recommended)
@@ -142,24 +138,14 @@ code example here
 
 ```markdown
 ### Good Example - Using TypeScript interfaces
-\`\`\`typescript
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
 
-function getUser(id: string): User {
-  // Implementation
-}
-\`\`\`
+\`\`\`typescript interface User { id: string; name: string; email: string; }
+
+function getUser(id: string): User { // Implementation } \`\`\`
 
 ### Bad Example - Using any type
-\`\`\`typescript
-function getUser(id: any): any {
-  // Loses type safety
-}
-\`\`\`
+
+\`\`\`typescript function getUser(id: any): any { // Loses type safety } \`\`\`
 ```
 
 ### Conditional Guidance
@@ -216,23 +202,25 @@ Brief introduction and context.
 ## Code Standards
 
 ### Naming Conventions
+
 - Rule 1
 - Rule 2
 
 ### File Organization
+
 - Structure 1
 - Structure 2
 
 ## Common Patterns
 
 ### Pattern 1
+
 Description and example
 
-\`\`\`language
-code example
-\`\`\`
+\`\`\`language code example \`\`\`
 
 ### Pattern 2
+
 Description and example
 
 ## Validation

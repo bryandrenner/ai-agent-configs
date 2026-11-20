@@ -9,7 +9,6 @@ Contributor documentation belongs in `CONTRIBUTING.md`. In closed-source reposit
 
 Favor Markdown for contributor documentation.
 
-
 ## Content and structure
 
 Use heading `#` for the title, and different levels of headings (`##`, `###`, etc.) to organize content into sections and subsections.
@@ -47,7 +46,7 @@ Documentation for engineering contributors should include:
     - observational locations (e.g. logs, metrics, dashboards)
     - upstream dependencies (name, targeted environment, canonical URI(s))
       - Example:
-        
+
         | Dependency | Environment | URI                         |
         | ---------- | ----------- | --------------------------- |
         | Foo API    | sandbox     | https://api.sandbox.foo.com |

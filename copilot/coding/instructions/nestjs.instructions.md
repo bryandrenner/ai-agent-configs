@@ -11,6 +11,7 @@ As GitHub Copilot, you are an expert in NestJS development with deep knowledge o
 ## Core NestJS Principles
 
 ### **1. Dependency Injection (DI)**
+
 - **Principle:** NestJS uses a powerful DI container that manages the instantiation and lifetime of providers.
 - **Guidance for Copilot:**
   - Use `@Injectable()` decorator for services, repositories, and other providers
@@ -19,6 +20,7 @@ As GitHub Copilot, you are an expert in NestJS development with deep knowledge o
   - Use custom providers when you need specific instantiation logic
 
 ### **2. Modular Architecture**
+
 - **Principle:** Organize code into feature modules that encapsulate related functionality.
 - **Guidance for Copilot:**
   - Create feature modules with `@Module()` decorator
@@ -27,6 +29,7 @@ As GitHub Copilot, you are an expert in NestJS development with deep knowledge o
   - Implement shared modules for common functionality
 
 ### **3. Decorators and Metadata**
+
 - **Principle:** Leverage decorators to define routes, middleware, guards, and other framework features.
 - **Guidance for Copilot:**
   - Use appropriate decorators: `@Controller()`, `@Get()`, `@Post()`, `@Injectable()`
@@ -37,6 +40,7 @@ As GitHub Copilot, you are an expert in NestJS development with deep knowledge o
 ## Project Structure Best Practices
 
 ### **Recommended Directory Structure**
+
 ```
 src/
 ├── app.module.ts
@@ -59,6 +63,7 @@ src/
 ```
 
 ### **File Naming Conventions**
+
 - **Controllers:** `*.controller.ts` (e.g., `users.controller.ts`)
 - **Services:** `*.service.ts` (e.g., `users.service.ts`)
 - **Modules:** `*.module.ts` (e.g., `users.module.ts`)
@@ -72,6 +77,7 @@ src/
 ## API Development Patterns
 
 ### **1. Controllers**
+
 - Keep controllers thin - delegate business logic to services
 - Use proper HTTP methods and status codes
 - Implement comprehensive input validation with DTOs
@@ -86,18 +92,19 @@ export class UsersController {
   @Get()
   @UseInterceptors(TransformInterceptor)
   async findAll(@Query() query: GetUsersDto): Promise<User[]> {
-    return this.usersService.findAll(query);
+    return this.usersService.findAll(query)
   }
 
   @Post()
   @UsePipes(ValidationPipe)
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+    return this.usersService.create(createUserDto)
   }
 }
 ```
 
 ### **2. Services**
+
 - Implement business logic in services, not controllers
 - Use constructor-based dependency injection
 - Create focused, single-responsibility services
@@ -113,15 +120,16 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.userRepository.create(createUserDto);
-    const savedUser = await this.userRepository.save(user);
-    await this.emailService.sendWelcomeEmail(savedUser.email);
-    return savedUser;
+    const user = this.userRepository.create(createUserDto)
+    const savedUser = await this.userRepository.save(user)
+    await this.emailService.sendWelcomeEmail(savedUser.email)
+    return savedUser
   }
 }
 ```
 
 ### **3. DTOs and Validation**
+
 - Use class-validator decorators for input validation
 - Create separate DTOs for different operations (create, update, query)
 - Implement proper transformation with class-transformer
@@ -131,23 +139,24 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @Length(2, 50)
-  name: string;
+  name: string
 
   @IsEmail()
-  email: string;
+  email: string
 
   @IsString()
   @MinLength(8)
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
     message: 'Password must contain uppercase, lowercase and number',
   })
-  password: string;
+  password: string
 }
 ```
 
 ## Database Integration
 
 ### **TypeORM Integration**
+
 - Use TypeORM as the primary ORM for database operations
 - Define entities with proper decorators and relationships
 - Implement repository pattern for data access
@@ -157,29 +166,30 @@ export class CreateUserDto {
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({ unique: true })
-  email: string;
+  email: string
 
   @Column()
-  name: string;
+  name: string
 
   @Column({ select: false })
-  password: string;
+  password: string
 
-  @OneToMany(() => Post, post => post.author)
-  posts: Post[];
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[]
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 }
 ```
 
 ### **Custom Repositories**
+
 - Extend base repository functionality when needed
 - Implement complex queries in repository methods
 - Use query builders for dynamic queries
@@ -187,6 +197,7 @@ export class User {
 ## Authentication and Authorization
 
 ### **JWT Authentication**
+
 - Implement JWT-based authentication with Passport
 - Use guards to protect routes
 - Create custom decorators for user context
@@ -195,19 +206,20 @@ export class User {
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
-    return super.canActivate(context);
+    return super.canActivate(context)
   }
 
   handleRequest(err: any, user: any, info: any) {
     if (err || !user) {
-      throw err || new UnauthorizedException();
+      throw err || new UnauthorizedException()
     }
-    return user;
+    return user
   }
 }
 ```
 
 ### **Role-Based Access Control**
+
 - Implement RBAC using custom guards and decorators
 - Use metadata to define required roles
 - Create flexible permission systems
@@ -224,6 +236,7 @@ async remove(@Param('id') id: string): Promise<void> {
 ## Error Handling and Logging
 
 ### **Exception Filters**
+
 - Create global exception filters for consistent error responses
 - Handle different types of exceptions appropriately
 - Log errors with proper context
@@ -231,32 +244,35 @@ async remove(@Param('id') id: string): Promise<void> {
 ```typescript
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  private readonly logger = new Logger(AllExceptionsFilter.name);
+  private readonly logger = new Logger(AllExceptionsFilter.name)
 
   catch(exception: unknown, host: ArgumentsHost): void {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
+    const ctx = host.switchToHttp()
+    const response = ctx.getResponse<Response>()
+    const request = ctx.getRequest<Request>()
 
-    const status = exception instanceof HttpException 
-      ? exception.getStatus() 
-      : HttpStatus.INTERNAL_SERVER_ERROR;
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR
 
-    this.logger.error(`${request.method} ${request.url}`, exception);
+    this.logger.error(`${request.method} ${request.url}`, exception)
 
     response.status(status).json({
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
-      message: exception instanceof HttpException 
-        ? exception.message 
-        : 'Internal server error',
-    });
+      message:
+        exception instanceof HttpException
+          ? exception.message
+          : 'Internal server error',
+    })
   }
 }
 ```
 
 ### **Logging**
+
 - Use built-in Logger class for consistent logging
 - Implement proper log levels (error, warn, log, debug, verbose)
 - Add contextual information to logs
@@ -264,14 +280,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
 ## Testing Strategies
 
 ### **Unit Testing**
+
 - Test services independently using mocks
 - Use Jest as the testing framework
 - Create comprehensive test suites for business logic
 
 ```typescript
 describe('UsersService', () => {
-  let service: UsersService;
-  let repository: Repository<User>;
+  let service: UsersService
+  let repository: Repository<User>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -286,30 +303,32 @@ describe('UsersService', () => {
           },
         },
       ],
-    }).compile();
+    }).compile()
 
-    service = module.get<UsersService>(UsersService);
-    repository = module.get<Repository<User>>(getRepositoryToken(User));
-  });
+    service = module.get<UsersService>(UsersService)
+    repository = module.get<Repository<User>>(getRepositoryToken(User))
+  })
 
   it('should create a user', async () => {
-    const createUserDto = { name: 'John', email: 'john@example.com' };
-    const user = { id: '1', ...createUserDto };
+    const createUserDto = { name: 'John', email: 'john@example.com' }
+    const user = { id: '1', ...createUserDto }
 
-    jest.spyOn(repository, 'create').mockReturnValue(user as User);
-    jest.spyOn(repository, 'save').mockResolvedValue(user as User);
+    jest.spyOn(repository, 'create').mockReturnValue(user as User)
+    jest.spyOn(repository, 'save').mockResolvedValue(user as User)
 
-    expect(await service.create(createUserDto)).toEqual(user);
-  });
-});
+    expect(await service.create(createUserDto)).toEqual(user)
+  })
+})
 ```
 
 ### **Integration Testing**
+
 - Use TestingModule for integration tests
 - Test complete request/response cycles
 - Mock external dependencies appropriately
 
 ### **E2E Testing**
+
 - Test complete application flows
 - Use supertest for HTTP testing
 - Test authentication and authorization flows
@@ -317,12 +336,14 @@ describe('UsersService', () => {
 ## Performance and Security
 
 ### **Performance Optimization**
+
 - Implement caching strategies with Redis
 - Use interceptors for response transformation
 - Optimize database queries with proper indexing
 - Implement pagination for large datasets
 
 ### **Security Best Practices**
+
 - Validate all inputs using class-validator
 - Implement rate limiting to prevent abuse
 - Use CORS appropriately for cross-origin requests
@@ -337,7 +358,7 @@ export class AuthController {
   @Post('login')
   @Throttle(5, 60) // 5 requests per minute
   async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+    return this.authService.login(loginDto)
   }
 }
 ```
@@ -345,6 +366,7 @@ export class AuthController {
 ## Configuration Management
 
 ### **Environment Configuration**
+
 - Use `@nestjs/config` with `ConfigModule.forRoot()` for environment-based configuration
 - Validate configuration at startup using `Joi` or `class-validator` schemas
 - Use namespaced configuration for complex setups (`registerAs`)
@@ -357,7 +379,7 @@ export default registerAs('database', () => ({
   host: process.env.DB_HOST ?? 'localhost',
   port: parseInt(process.env.DB_PORT ?? '5432', 10),
   name: process.env.DB_NAME ?? 'app',
-}));
+}))
 
 // app.module.ts
 @Module({
@@ -393,9 +415,7 @@ export class HealthController {
   @Get()
   @HealthCheck()
   check() {
-    return this.health.check([
-      () => this.db.pingCheck('database'),
-    ]);
+    return this.health.check([() => this.db.pingCheck('database')])
   }
 }
 ```
@@ -414,10 +434,11 @@ const config = new DocumentBuilder()
   .setTitle('API')
   .setVersion('1.0')
   .addBearerAuth()
-  .build();
-const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api/docs', app, document);
+  .build()
+const document = SwaggerModule.createDocument(app, config)
+SwaggerModule.setup('api/docs', app, document)
 ```
+
 ```
 
 ## Common Pitfalls to Avoid
@@ -450,3 +471,4 @@ SwaggerModule.setup('api/docs', app, document);
 - [ ] Comprehensive testing coverage
 
 <!-- Source: https://github.com/github/awesome-copilot/blob/main/instructions/nestjs.instructions.md -->
+```

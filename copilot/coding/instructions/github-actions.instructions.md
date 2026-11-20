@@ -69,7 +69,7 @@ jobs:
 ```yaml
 permissions:
   contents: read
-  pull-requests: write  # only if the workflow comments on PRs
+  pull-requests: write # only if the workflow comments on PRs
 ```
 
 ### Secrets
